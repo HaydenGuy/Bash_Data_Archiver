@@ -38,7 +38,11 @@ for file in "${files_list[@]}"; do\
     fi
 done
 
-# Created a compressed zip file of the created directory with copied files
-tar -czvf "$formatted_date.tar.gz" "$file_copy_directory"
+# Change the working directory to the parent directory of the files you want to compress
+cd "$(dirname "$file_copy_directory")"
+
+# Create a compressed tar.gz file with the contents of the directory
+tar -czvf "$target_directory/$formatted_date.tar.gz" "$(basename "$file_copy_directory")"
+
 # Delete the uncompressed folder
 rm -r "$file_copy_directory"
